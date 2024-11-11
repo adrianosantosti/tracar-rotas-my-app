@@ -83,7 +83,7 @@ export default function Home() {
   };
 
   return (
-    <div className='w-full mx-3 my-3 gap-4 content-center ...'>
+    <div className='mx-2 my-2 gap-4 content-center ...'>
       <LoadScript googleMapsApiKey="AIzaSyBmXL8wzrL5Y_dBfeco202Np8XpjcSKZrY">
       
       <GoogleMap
