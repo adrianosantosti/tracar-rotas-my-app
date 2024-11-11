@@ -30,7 +30,7 @@ export default function Home() {
     // Adicione mais localizações aqui
   ];
 
-  const handleUserAddressChange = (e) => setUserAddress(e.target.value);
+  const handleUserAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => setUserAddress(e.target.value);
 
   const traceRoute = () => {
 
