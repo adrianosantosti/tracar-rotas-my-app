@@ -11,10 +11,7 @@ import { toast } from '@/hooks/use-toast';
 export type selectLocationType = {
   name: string | null;
   id: number;
-  position: [
-    lat: string | google.maps.LatLng | google.maps.Place | google.maps.LatLngLiteral,
-    lng: string | google.maps.LatLng | google.maps.Place | google.maps.LatLngLiteral,
-  ]
+  position: string | google.maps.LatLng | google.maps.Place | google.maps.LatLngLiteral;
 }
 
 export default function Home() {
