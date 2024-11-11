@@ -16,7 +16,7 @@ export type selectLocationType = {
 
 export default function Home() {
   const [userAddress, setUserAddress] = useState('');
-  const [directions, setDirections] = useState(null);
+  const [directions, setDirections] = useState<google.maps.DirectionsResult | null>();
   const [selectedLocation, setSelectedLocation] = useState<selectLocationType>();
   const [loading, setLoading] = useState(false);
 
@@ -64,9 +64,11 @@ export default function Home() {
         travelMode: window.google.maps.TravelMode.DRIVING,
       },
       (result, status) => {
-        if (status === window.google.maps.DirectionsStatus.OK) {
+        if (status === window.google.maps.DirectionsStatus.OK) 
+        {
           setDirections(result);
-        } else {
+        } 
+        else {
           alert('Não foi possível traçar a rota. Verifique o endereço inserido.');
         }
       }
@@ -106,7 +108,7 @@ export default function Home() {
               type="text"
               placeholder="Loja selecionada"
               value={selectedLocation?.name}
-              disabled="disabled"
+              disabled
               />
           }
 
