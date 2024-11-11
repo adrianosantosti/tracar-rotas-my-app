@@ -7,6 +7,14 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Loader2 } from "lucide-react";
 import { toast } from '@/hooks/use-toast';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 export type selectLocationType = {
   name: string | null;
@@ -21,10 +29,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const locations = [
-    { id: 1, name: 'Loja 1 - Teste', position: { lat: -23.52450081012362, lng: -46.64245413280253 } },
-    { id: 2, name: 'Loja 2 - Teste', position: { lat: -23.543106513921813, lng: -46.641429318655256 } },
-    { id: 3, name: 'Loja 3 - Teste', position: { lat: -23.537101263272856, lng: -46.57552208981917 } },
-    // Adicione mais localizações aqui
+    { id: 1, name: 'Loja 1 - Rua Gen. Flores - Bom Retiro SP', position: { lat: -23.52450081012362, lng: -46.64245413280253 } },
+    { id: 2, name: 'Loja 2 - Av. Ipiranga - República SP', position: { lat: -23.543106513921813, lng: -46.641429318655256 } },
+    { id: 3, name: 'Loja 3 - Rua Tuiuti - Tatuapé SP', position: { lat: -23.537101263272856, lng: -46.57552208981917 } },
   ];
 
   const handleUserAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => setUserAddress(e.target.value);
@@ -76,11 +83,11 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className='w-full mx-3 my-3 gap-4 content-center ...'>
       <LoadScript googleMapsApiKey="AIzaSyBmXL8wzrL5Y_dBfeco202Np8XpjcSKZrY">
-      <h1>Minhas Lojas</h1>
+      
       <GoogleMap
-        mapContainerStyle={{ width: '100%', height: '500px' }}
+        mapContainerStyle={{ width: '100%', height: '400px' }}
         center={{ lat: -23.55052, lng: -46.633308 }}
         zoom={10}
       >
@@ -98,42 +105,47 @@ export default function Home() {
         {directions && <DirectionsRenderer directions={directions} />}
       </GoogleMap>
 
-      <div style={{ marginTop: '20px' }}>
-        <div className="grid w-full max-w-lg items-center gap-1.5">
-          <Label htmlFor="ljSelecionada">Loja Selecionada:</Label>
 
-          {selectedLocation?.name &&
-            <Input
-              id="ljSelecionada"
-              type="text"
-              placeholder="Loja selecionada"
-              value={selectedLocation?.name}
-              disabled
-              />
-          }
+      <Card className="w-[650px] my-3 gap-4 content-center ...">
+        <CardHeader>
+          <CardTitle>Rotas</CardTitle>
+          <CardDescription>Selecione a loja, depois coloque o seu endereço e então, clique no botão: Traças Rota</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form>
+            <div className="grid w-full items-center gap-4">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="ljSelecionada">Loja Selecionada:</Label>
+                <Input
+                id="ljSelecionada"
+                type="text"
+                placeholder="Loja selecionada"
+                value={selectedLocation?.name ?? ''}
+                disabled
+                />
+              </div>
 
-        </div>
-      </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="endereco">Endereço:</Label>
+                <Input
+                  id="endereco"
+                  type="text"
+                  placeholder="Digite seu endereço"
+                  value={userAddress}
+                  onChange={handleUserAddressChange}
+                />
+              </div>
+            </div>
+          </form>
+        </CardContent>
 
-      <div style={{ marginTop: '20px' }}>
+        <CardFooter className="flex justify-between">
+          {/* <Button variant="outline">Cancel</Button> */}
+          {loading && <Button disabled>Traçar Rota<Loader2 className="animate-spin" /></Button>}
+          {!loading && <Button onClick={traceRoute} >Traçar Rota</Button>}
+        </CardFooter>
+      </Card>
 
-        <div className="grid w-full max-w-lg items-center gap-1.5">
-          <Label htmlFor="endereco">Endereço:</Label>
-          <Input
-            id="endereco"
-            type="text"
-            placeholder="Digite seu endereço"
-            value={userAddress}
-            onChange={handleUserAddressChange}
-          />
-
-        {loading && <Button disabled>Traçar Rota<Loader2 className="animate-spin" /></Button>}
-        {!loading && <Button onClick={traceRoute} >Traçar Rota</Button>}
-        
-        </div>
-
-        {/* {selectedLocation && <p>Destino: {selectedLocation.name}</p>} */}
-      </div>
     </LoadScript>
   </div>
   );
